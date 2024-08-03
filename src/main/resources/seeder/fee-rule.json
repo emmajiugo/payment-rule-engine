@@ -1,0 +1,24 @@
+[
+  {
+    "condition": {
+      "cardType": "credit-card",
+      "currency": "NOK",
+      "maxAmount": 10000.0
+    },
+    "action": {
+      "feeType": "percentage",
+      "feeValue": 2.0
+    }
+  },
+  {
+    "condition": {
+      "cardType": "debit-card",
+      "currency": "NOK",
+      "maxAmount": 10000.0
+    },
+    "action": {
+      "feeType": "flat",
+      "feeValue": 50.0
+    }
+  }
+]

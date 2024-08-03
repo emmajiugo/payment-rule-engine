@@ -1,0 +1,38 @@
+[
+  {
+    "condition": {
+      "country": "norway"
+    },
+    "action": {
+      "supportedPaymentMethods": [
+        "card",
+        "vipps"
+      ]
+    }
+  },
+  {
+    "condition": {
+      "country": "sweden"
+    },
+    "action": {
+      "supportedPaymentMethods": [
+        "card",
+        "apple_pay",
+        "google_pay"
+      ]
+    }
+  },
+  {
+    "condition": {
+      "country": "default"
+    },
+    "action": {
+      "supportedPaymentMethods": [
+        "card",
+        "paypal",
+        "apple_pay",
+        "google_pay"
+      ]
+    }
+  }
+]

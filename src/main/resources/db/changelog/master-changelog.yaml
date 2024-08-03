@@ -1,0 +1,13 @@
+# Master file to include all changelogs path
+databaseChangeLog:
+  - preConditions:
+      onFail: HALT
+      onError: HALT
+
+  # Initial schema including
+  - include:
+      file: ./logs/create-tables.sql
+      relativeToChangelogFile: true
+#  - include:
+#      file: ./logs/create-indexes.sql
+#      relativeToChangelogFile: true

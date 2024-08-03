@@ -1,0 +1,23 @@
+{
+  "condition": {
+    "countries": [
+      {
+        "name": "Country-X",
+        "threshold": {
+          "currency": "USD",
+          "amount": 10000
+        }
+      },
+      {
+        "name": "Country-Y",
+        "threshold": {
+          "currency": "NOK",
+          "amount": 5000
+        }
+      }
+    ]
+  },
+  "action": {
+    "requireVerification": true
+  }
+}

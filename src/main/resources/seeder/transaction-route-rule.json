@@ -1,0 +1,65 @@
+[
+  {
+    "condition": {
+      "cardScheme": "Mastercard",
+      "currency": "SEK"
+    },
+    "action": {
+      "routingStrategy": "percentage",
+      "routes": [
+        {
+          "acquirer": "Acquirer A",
+          "percentage": 20
+        },
+        {
+          "acquirer": "Acquirer B",
+          "percentage": 50
+        },
+        {
+          "acquirer": "Acquirer C",
+          "percentage": 30
+        }
+      ]
+    }
+  },
+  {
+    "condition": {
+      "cardScheme": "Visa",
+      "currency": "SEK"
+    },
+    "action": {
+      "routingStrategy": "percentage",
+      "routes": [
+        {
+          "acquirer": "Acquirer X",
+          "percentage": 40
+        },
+        {
+          "acquirer": "Acquirer Y",
+          "percentage": 60
+        }
+      ]
+    }
+  },
+  {
+    "condition": {
+      "cardScheme": "Visa",
+      "currency": "EUR"
+    },
+    "action": {
+      "routingStrategy": "flat",
+      "routes": [
+        {
+          "acquirer": "Acquirer K",
+          "min": 0,
+          "max": 2500
+        },
+        {
+          "acquirer": "Acquirer J",
+          "min": 2500.01,
+          "max": null
+        }
+      ]
+    }
+  }
+]

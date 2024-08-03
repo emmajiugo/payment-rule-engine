@@ -1,0 +1,23 @@
+[
+  {
+    "condition": {
+      "requiredRole": "EMPLOYEE"
+    },
+    "action": {
+      "features": [
+        {
+          "name": "NEW_FEATURE_X",
+          "enabled": true
+        },
+        {
+          "name": "NEW_FEATURE_Y",
+          "enabled": true
+        },
+        {
+          "name": "NEW_FEATURE_Z",
+          "enabled": false
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "condition": {
+    "customerType": "existing",
+    "checkPeriod": {
+      "unit": "DAYS",
+      "value": 365
+    }
+  },
+  "action": {
+    "waive3DS": true
+  }
+}
