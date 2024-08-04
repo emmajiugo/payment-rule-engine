@@ -4,10 +4,8 @@ import lombok.Data;
 
 import java.util.List;
 
-@Data
-public class PaymentMethodMapper {
-    private Condition condition;
-    private Action action;
+public class PaymentMethodMapper extends
+        RuleMapper<PaymentMethodMapper.Condition, PaymentMethodMapper.Action> {
 
     @Data
     public static class Action{

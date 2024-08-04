@@ -2,10 +2,13 @@ package com.emmajiugo.controller;
 
 import com.emmajiugo.dto.PaymentContext;
 import com.emmajiugo.service.RuleEngineService;
+import com.emmajiugo.utils.PaymentContextValidator;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Log4j2
 @RestController
 @RequestMapping("/api/payment-rule")
 public class RuleEngineController {
@@ -18,10 +21,16 @@ public class RuleEngineController {
     }
 
     @PostMapping("/process")
-    public ResponseEntity<PaymentContext> processPayment(
-            @RequestBody PaymentContext paymentContext
-    ) throws Exception {
-        return ruleEngineService.processPayment(paymentContext);
+    public ResponseEntity<Object> processPayment(@RequestBody PaymentContext paymentContext) throws Exception {
+        //simple validation
+        var error = PaymentContextValidator.validate(paymentContext);
+
+        if (error != null) {
+            log.error("Validation failed: {}", error);
+            return ResponseEntity.badRequest().body(error);
+        }
+
+        return ResponseEntity.ok(ruleEngineService.processPayment(paymentContext));
     }
 
     @GetMapping("/test")

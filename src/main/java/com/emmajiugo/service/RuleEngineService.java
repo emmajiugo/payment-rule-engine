@@ -6,7 +6,6 @@ import com.emmajiugo.dto.PaymentContext;
 import com.emmajiugo.entity.Rule;
 import com.emmajiugo.ruleImpl.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ public class RuleEngineService {
         this.customerDao = customerDao;
     }
 
-    public ResponseEntity<PaymentContext> processPayment(PaymentContext context) throws Exception {
+    public PaymentContext processPayment(PaymentContext context) {
         List<PaymentRule> paymentRules = new ArrayList<>();
 
         var rules = ruleDao.getRules();
@@ -49,6 +48,6 @@ public class RuleEngineService {
             }
         });
 
-        return ResponseEntity.ok(context);
+        return context;
     }
 }

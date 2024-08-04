@@ -5,10 +5,8 @@ import lombok.Data;
 
 import java.util.List;
 
-@Data
-public class HighRiskCountryMapper {
-    private Condition condition;
-    private Action action;
+public class HighRiskCountryMapper extends
+        RuleMapper<HighRiskCountryMapper.Condition, HighRiskCountryMapper.Action> {
 
     @Data
     public static class Action{

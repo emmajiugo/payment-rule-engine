@@ -4,10 +4,8 @@ import lombok.Data;
 
 import java.util.List;
 
-@Data
-public class EmployeeFeatureMapper {
-    private Condition condition;
-    private Action action;
+public class EmployeeFeatureMapper extends
+        RuleMapper<EmployeeFeatureMapper.Condition, EmployeeFeatureMapper.Action> {
 
     @Data
     public static class Action{

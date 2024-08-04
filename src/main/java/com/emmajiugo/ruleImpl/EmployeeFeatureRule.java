@@ -45,6 +45,7 @@ public class EmployeeFeatureRule implements PaymentRule {
                 .toList();
 
         context.setEnabledFeatures(enabledFeatures);
+        context.setEmployee(true);
     }
 
     private Customer getCustomer(String email) {

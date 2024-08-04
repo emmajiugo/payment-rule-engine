@@ -2,10 +2,8 @@ package com.emmajiugo.ruleImpl.mapper;
 
 import lombok.Data;
 
-@Data
-public class FeeRuleMapper {
-    private Condition condition;
-    private Action action;
+public class FeeRuleMapper extends
+        RuleMapper<FeeRuleMapper.Condition, FeeRuleMapper.Action> {
 
     @Data
     public static class Action{
