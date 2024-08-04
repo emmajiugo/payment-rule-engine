@@ -16,6 +16,7 @@
         <!-- DEPENDENCIES -->
         <json.version>20231013</json.version>
         <gson.version>2.10.1</gson.version>
+        <caffeine.version>3.1.8</caffeine.version>
     </properties>
 
     <parent>
@@ -62,6 +63,11 @@
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>${json.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+            <version>${caffeine.version}</version>
         </dependency>
 
         <!-- TESTS -->
