@@ -1,32 +1,30 @@
 package com.emmajiugo.ruleImpl;
 
 import com.emmajiugo.dto.PaymentContext;
-import com.emmajiugo.dto.RuleDto;
+import com.emmajiugo.ruleImpl.mapper.TransactionRouteMapper;
+import com.emmajiugo.ruleImpl.mapper.TransactionRouteMapper.Route;
 import com.emmajiugo.utils.Utils;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 public class TransactionRouteRule implements PaymentRule {
-    private final List<RuleDto> rules;
-    private Random random = new Random();
-    private RuleDto matchedRule = null;
+    private final List<TransactionRouteMapper> ruleMapper;
+    private final Random random = new Random();
+    private TransactionRouteMapper matchedRule = null;
 
     public TransactionRouteRule(String ruleMeta) {
-        Type listType = new TypeToken<List<RuleDto>>() {}.getType();
-        this.rules = Utils.fromJsonArray(ruleMeta, listType);
+        Type listType = new TypeToken<List<TransactionRouteMapper>>() {}.getType();
+        this.ruleMapper = Utils.fromJsonArray(ruleMeta, listType);
     }
 
     @Override
     public boolean evaluate(PaymentContext context) {
-        for (RuleDto rule : rules) {
-            var condition = Utils.fromJson(Utils.toJson(rule.condition()), Map.class);
-
-            String cardScheme = (String) condition.get("cardScheme");
-            String currency = (String) condition.get("currency");
+        for (var rule : ruleMapper) {
+            String cardScheme = rule.getCondition().getCardScheme();
+            String currency = rule.getCondition().getCurrency();
 
             if (cardScheme.equalsIgnoreCase(context.getCardScheme())
                     && currency.equalsIgnoreCase(context.getCurrency())) {
@@ -44,10 +42,8 @@ public class TransactionRouteRule implements PaymentRule {
                     + " and cardType: " + context.getCardType());
         }
 
-        var action = Utils.fromJson(Utils.toJson(matchedRule.action()), Map.class);
-
-        String routingStrategy = (String) action.get("routingStrategy");
-        var routes = (List<Map<String, Object>>) action.get("routes");
+        String routingStrategy = matchedRule.getAction().getRoutingStrategy();
+        var routes =  matchedRule.getAction().getRoutes();
 
         switch (routingStrategy.toLowerCase()) {
             case "percentage":
@@ -61,13 +57,13 @@ public class TransactionRouteRule implements PaymentRule {
         }
     }
 
-    private void executePercentageStrategy(PaymentContext context, List<Map<String, Object>> routes) {
+    private void executePercentageStrategy(PaymentContext context, List<Route> routes) {
         double randomValue = random.nextDouble() * 100;
         double cumulativePercentage = 0;
 
         for (var route : routes) {
-            String acquirer = (String) route.get("acquirer");
-            double percentage = ((Number) route.get("percentage")).doubleValue();
+            String acquirer = route.getAcquirer();
+            double percentage = route.getPercentage();
             cumulativePercentage += percentage;
 
             if (randomValue <= cumulativePercentage) {
@@ -79,16 +75,16 @@ public class TransactionRouteRule implements PaymentRule {
         throw new RuntimeException("No acquirer selected.");
     }
 
-    private void executeFlatStrategy(PaymentContext context, List<Map<String, Object>> routes) {
+    private void executeFlatStrategy(PaymentContext context, List<Route> routes) {
         double amount = context.getAmount();
 
         for (var route : routes) {
-            String acquirer = (String) route.get("acquirer");
-            double min = ((Number) route.get("min")).doubleValue();
-            Object maxObj = route.get("max");
-            double max = maxObj == null ? Double.MAX_VALUE : ((Number) maxObj).doubleValue();
+            String acquirer = route.getAcquirer();
+            double minAmount = route.getMin();
+            double maxAmount = route.getMax();
+            double max = maxAmount == 0.0 ? Double.MAX_VALUE : maxAmount;
 
-            if (amount >= min && amount <= max) {
+            if (amount >= minAmount && amount <= max) {
                 context.setPaymentRoute(acquirer);
                 return;
             }

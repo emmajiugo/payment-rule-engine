@@ -2,7 +2,6 @@ package com.emmajiugo.ruleImpl;
 
 import com.emmajiugo.dao.CustomerDao;
 import com.emmajiugo.dto.PaymentContext;
-import com.emmajiugo.dto.RuleDto;
 import com.emmajiugo.entity.Customer;
 import com.emmajiugo.ruleImpl.mapper.EmployeeFeatureMapper;
 import com.emmajiugo.ruleImpl.mapper.EmployeeFeatureMapper.Action;
