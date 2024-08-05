@@ -26,6 +26,8 @@ public class EmployeeFeatureRule implements PaymentRule {
     public boolean evaluate(PaymentContext context) {
         Customer customer = getCustomer(context.getCustomerEmail());
 
+        if (customer == null) return false;
+
         for (EmployeeFeatureMapper rule : ruleMapper) {
             String requiredRole = rule.getCondition().getRequiredRole();
 
