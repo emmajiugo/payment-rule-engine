@@ -22,7 +22,7 @@ public class RuleEngineController {
     }
 
     @PostMapping("/process")
-    public ResponseEntity<Object> processPayment(@RequestBody PaymentContext paymentContext) {
+    public ResponseEntity<?> processPayment(@RequestBody PaymentContext paymentContext) {
         try {
             log.info("Evaluating payment: {}", paymentContext);
 
